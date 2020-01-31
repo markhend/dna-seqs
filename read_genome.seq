@@ -1,0 +1,12 @@
+def read_genome(filename):
+    genome: str = '' 
+    with open(filename, 'r') as f:
+        for line in f:
+            if not line[0] == '>':
+                # print "adding", line
+                genome += line.rstrip()
+    return genome
+
+genome = read_genome('lambda_virus.fa')
+print genome[:100]
+print len(genome)

@@ -1,0 +1,16 @@
+import random
+
+print seq(''.join([c for _ in range(10) for c in random.choice('ACGT')]))
+print seq(str.cat([c for _ in range(10) for c in random.choice('ACGT')]))
+print seq(''.join(random.choices(list('ACGT'), None, None, 10)))
+
+seq1 = ''
+for _ in range(10):
+    seq1 += random.choice('ACGT')
+print seq1
+
+print seq(''.join([random.choice('ACGT') for _ in range(10)]))
+
+random.choices(list('ACGT'), None, None, 10) |> echo
+
+list('ACGT') |> random.choices(..., None, None, 10) |> ''.join |> echo
