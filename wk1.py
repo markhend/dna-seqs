@@ -55,16 +55,19 @@ def readFastq(filename):
     return sequences, qualities
 
 
-# genome = readGenome('lambda_virus.fa')
+genome = readGenome('lambda_virus.fa')
 
 # print(genome)
-# print(len(naive('AGGT', genome)))
-# print(len(naive('ACCT', genome)))
-# print(len(naive_with_rc('AGGT', genome)))
-# print(len(naive('TTAA', genome)))
-# print(len(naive_with_rc('TTAA', genome)))
-# print(naive_with_rc('ACTAAGT', genome)[0])
-# print(naive_with_rc('AGTCGA', genome)[0])
+print(len(naive('AGGT', genome)))
+print(len(naive('ACCT', genome)))
+print(len(naive_with_rc('AGGT', genome)), '\n')
+
+print(len(naive('TTAA', genome)))
+print(len(naive_with_rc('TTAA', genome)), '\n')
+
+print(naive_with_rc('ACTAAGT', genome)[0], '\n')
+
+print(naive_with_rc('AGTCGA', genome)[0], '\n')
 
 
 def naive_2mm(p, t):
@@ -73,7 +76,7 @@ def naive_2mm(p, t):
         match = True
         mm = 0
         for j in range(len(p)):  # loop over characters
-            if t[i+j] != p[j]:  # compare characters
+            if t[i+j] != p[j]:  # compare characters and allow up to 2 mismatches
                 mm += 1
                 if mm > 2:
                     match = False
@@ -82,7 +85,7 @@ def naive_2mm(p, t):
             occurrences.append(i)  # all chars matched; record
     return occurrences
 
-# print(naive_2mm('ACTTTA','ACTTACTTGATAAAGT'))
+print(naive_2mm('ACTTTA','ACTTACTTGATAAAGT'))
 
 
 '''
@@ -94,8 +97,8 @@ print('# occurrences: %d' % len(occurrences))
 # occurrences: 79 
 '''
 
-# print(len(naive_2mm('TTCAAGCC', genome)))
-# print(naive_2mm('AGGAGGTT', genome)[0])
+print(len(naive_2mm('TTCAAGCC', genome)))
+print(naive_2mm('AGGAGGTT', genome)[0], '\n')
 
 seqs, quals = readFastq('ERR037900_1.first1000.fastq')
 # print(quals[:10])
