@@ -2,4 +2,4 @@ ads*
 __pycache__/
 kmer_index.py
 subseq_index.py
-
+*.utf-8
