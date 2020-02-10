@@ -217,6 +217,7 @@ index = Index(t, 8)
 p = "GGCGCGGTGGCTCACGCCTGTAAT"
 all_matches = approximate_matches(p, t, index)
 print("4. all_matches:", all_matches, "len ", len(all_matches))
+print()
 print("naive_2mm:", naive_2mm(p, t))
 print()
 
@@ -281,28 +282,56 @@ def num_char_mm(s, t):
         if a != b:
             mm +=1
     return mm
-num_char_mm("mark", "mast")
 
 def query_subseq(p, t, subseq_index):
     # return occurrences of lenth 24 p in t and num_index_hits, k = 8
-    k, ival = 3, 8
+    k, ival = 8, 3
     span = 1 + ival * (k - 1)
-    num_index_hits = 0
+    total_index_hits = 0
+    matches = []
+    p_subs = []
     for i in range(3):
-        matches = subseq_index.query(p[i:])
-        num_index_hits += len(matches)
-        print("i:", i)
-        print("p:    ", p)
-        print("p[i:]:", p[i:])
-        print("matches", matches)
-        print("num_matches:", len(matches))
-        print()
-    print("num_index_hits:", num_index_hits)
-    return
+        p_subs.append(p[i:i+span:ival])
+    print("p:",p)
+    print("subseqs:", p_subs)
+    for i in range(3):
+        hits = subseq_index.query(p[i:])
+        total_index_hits += len(hits)
 
+        print("i:", i)
+        print("hits", hits)
+        print("total_index_hits:", total_index_hits)
+        print()
+
+        for h in hits:
+            mismatches = 0
+            if i == 0:
+                for j in [1, 2]:
+                    mismatches +=  num_char_mm(p_subs[i+j], t[h+j:h+j+span:ival])
+            elif i == 1:
+                for j in [-1, 1]:
+                    mismatches +=  num_char_mm(p_subs[i+j], t[h+j:h+j+span:ival])
+            elif i == 2:
+                for j in [-2, -1]:
+                    mismatches +=  num_char_mm(p_subs[i+j], t[h+j:h+j+span:ival])
+            if mismatches <= 2 and h-i not in matches:
+                matches.append(h-i)
+        print("matches", sorted(matches), "len:", len(matches))
+        print()
+    return
 
 
 p = "GGCGCGGTGGCTCACGCCTGTAAT"
 subseq_index = SubseqIndex(t, 8, 3)
-print("5._______________________________")
+print("5.")
+query_subseq(p, t, subseq_index)
+
+t = 'to-morrow and to-morrow and to-morrow creeps in this petty pace'
+p = 'to-morrow and to-morrow '
+subseq_index = SubseqIndex(t, 8, 3)
+query_subseq(p, t, subseq_index)
+
+t = open('1110.txt.utf-8').read()
+p = 'English measure backward'
+subseq_index = SubseqIndex(t, 8, 3)
 query_subseq(p, t, subseq_index)
