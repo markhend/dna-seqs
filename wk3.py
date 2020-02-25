@@ -64,12 +64,12 @@ def approxMatch(p, t):
 p, t = 'GCGTATGC', 'TATTGGCTATACGGTT'
 # print(approxMatch(p, t)) # 2
 
-t = readGenome('chr1.GRCh38.excerpt.fasta')
-p = 'GCTGATCGATCGTACG'
-print(approxMatch(p, t))  # 3
+# t = readGenome('chr1.GRCh38.excerpt.fasta')
+# p = 'GCTGATCGATCGTACG'
+# print(approxMatch(p, t))  # 3
 
-p = 'GATTTACCAGATTGAG'
-print(approxMatch(p, t))  # 2
+# p = 'GATTTACCAGATTGAG'
+# print(approxMatch(p, t))  # 2
 
 
 def overlap(a, b, min_length=3):
