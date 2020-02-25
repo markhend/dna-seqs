@@ -4,3 +4,4 @@ kmer_index.py
 subseq_index.py
 bm_preproc.py
 *.utf-8
+test.fastq
