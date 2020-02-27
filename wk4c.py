@@ -138,8 +138,5 @@ print("len olaps", len(olaps))
 # print("scs len:", len(scs), "num 'A':", scs.count('A'), "num 'T':", scs.count('T'))
 # len:15894, A:4633, T:3723
 
-# t1 = time()
 scs = greedy_scs_from_olaps(reads, olaps)
-# t2 = time()-t1
-# print("time:", t2)
 print("scs len:", len(scs), "num 'A':", scs.count('A'), "num 'T':", scs.count('T'))
